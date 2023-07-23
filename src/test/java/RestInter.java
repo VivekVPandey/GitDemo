@@ -1,9 +1,14 @@
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.*;
 import static org.testng.Assert.assertEquals;
+
+import java.util.HashMap;
 
 import org.hamcrest.core.StringContains;
 public class RestInter {
@@ -12,30 +17,26 @@ public class RestInter {
 		
 		baseURI="https://rahulshettyacademy.com";
 		
-		Response resp= given().
+		HashMap<String, Object>  map = new HashMap<>();
+		map.put("name", "This is test data");
+		map.put("isbn", "asff");
+		map.put("aisle", "234324");
+		map.put("author", "VIvek Pandey");	
+		
+		Response resp= given().log().all().
 								header("Content-Type","application/json").
-								body("{\r\n"
-										+ "\"name\":\"Learn Appium Automation with Java\",\r\n"
-										+ "\"isbn\":\"sdgfg\",\r\n"
-										+ "\"aisle\":\"23926\",\r\n"
-										+ "\"author\":\"John foer\"\r\n"
-										+ "}\r\n"
-										+ "").
-						when().
+								body(map).
+						when().log().all().
 								post("/Library/Addbook.php").
-						then().
+						then().log().all().
 								statusCode(200).
-								body("Msg", StringContains.containsString("added")).
+								body("ID", StringContains.containsString((String) map.get("isbn")+(String) map.get("aisle"))).
 								extract().response();
 		
-		String r= resp.asPrettyString();
-		System.out.println(r);
-		
-		JsonPath js= new JsonPath(r);
+		String res= resp.asPrettyString();
+		JsonPath js= new JsonPath(res);
 		System.out.println(js.get("Msg"));
-		
-		//assertEquals(js.get("Msg"), "Book Already Exists");
-		
+				
 								
 		
 	}
