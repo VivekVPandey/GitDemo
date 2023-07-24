@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import org.hamcrest.core.StringContains;
 
+import Pojo.bookRespPojo;
+
 public class LibraryBookApi extends LibraryAllMethods{
 	
 	public static void main(String[] args) {
@@ -28,6 +30,8 @@ public class LibraryBookApi extends LibraryAllMethods{
 		
 		Response getResp=book.getBook("getBook",ID);
 		System.out.println(getResp.asPrettyString());
+		String isbn= js.readRespJson(getResp, "[0].isbn");
+		System.out.println(isbn);
 		
 		//Delete book
 		Response deleteResp=book.deleteBook("deleteBook",ID);

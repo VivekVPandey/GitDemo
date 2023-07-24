@@ -1,5 +1,6 @@
+package Pojo;
 
-public class getBookPojoResp {
+public class bookPojo {
 	
 	private String book_name;
 	private String isbn;
@@ -29,7 +30,5 @@ public class getBookPojoResp {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
 	
-
 }

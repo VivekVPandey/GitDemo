@@ -4,7 +4,9 @@ import static io.restassured.RestAssured.given;
 import java.util.HashMap;
 
 import org.hamcrest.core.StringContains;
+import org.junit.Test;
 
+import Pojo.bookRespPojo;
 import io.cucumber.java.en.Then;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -22,6 +24,7 @@ public class LibraryAllMethods {
 	
 	ResponseSpecification respThen= new ResponseSpecBuilder().expectStatusCode(200).build();
 	
+		//Add book
 		public Response addBook(String resource, String isbn) {
 		ApiResources apiResource= ApiResources.valueOf(resource);
 		HashMap<String, Object>  map = new HashMap<>();
@@ -42,6 +45,7 @@ public class LibraryAllMethods {
 		return resp;
 	}
 	
+	//Get data
 	public Response getBook(String resource, String id) {
 		ApiResources apiResource= ApiResources.valueOf(resource);
 		
@@ -57,6 +61,7 @@ public class LibraryAllMethods {
 		
 	}
 	
+	//Delete book
 	public Response deleteBook(String resource,String id) {
 		
 		ApiResources apiResource= ApiResources.valueOf(resource);
