@@ -91,7 +91,7 @@ void updateUser() {
 				.pathParam("id", id)
 		.when().log().all()
 			.delete("/api/users/{id}")
-		.then()
+		.then().log().status()
 			.statusCode(204);
 	}
 		
